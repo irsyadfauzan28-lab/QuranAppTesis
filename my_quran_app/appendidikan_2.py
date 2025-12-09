@@ -57,13 +57,13 @@ def search_ayat(query, corpus, ayat_list):
 # ----------------- LOAD DATA ----------------- #
 @st.cache_data
 def load_quran():
-    df = pd.read_excel("quran.xlsx")
+    df = pd.read_excel("https://github.com/irsyadfauzan28-lab/QuranAppTesis/blob/main/my_quran_app/quran.xlsx")
     df['processed_text'] = df['translation'].apply(preprocess_text)
     return df
 
 @st.cache_data
 def load_book():
-    book_df = pd.read_excel("Rangkuman_Bab_Berdasarkan_Ayat_dan_Hadits.xlsx")
+    book_df = pd.read_excel("https://github.com/irsyadfauzan28-lab/QuranAppTesis/blob/main/my_quran_app/Rangkuman_Bab_Berdasarkan_Ayat_dan_Hadits.xlsx")
     book_df['processed_text'] = book_df['Isi Pokok'].fillna("").apply(preprocess_text)
     return book_df
 
