@@ -57,13 +57,13 @@ def search_ayat(query, corpus, ayat_list):
 # ----------------- LOAD DATA ----------------- #
 @st.cache_data
 def load_quran():
-    df = pd.read_excel("https://raw.github.com/irsyadfauzan28-lab/QuranAppTesis/blob/main/my_quran_app/quran.xlsx")
+    df = pd.read_excel("https://raw.githubusercontent.com/irsyadfauzan28-lab/QuranAppTesis/main/my_quran_app/quran.xlsx")
     df['processed_text'] = df['translation'].apply(preprocess_text)
     return df
 
 @st.cache_data
 def load_book():
-    book_df = pd.read_excel("https://raw.github.com/irsyadfauzan28-lab/QuranAppTesis/blob/main/my_quran_app/Rangkuman_Bab_Berdasarkan_Ayat_dan_Hadits.xlsx")
+    book_df = pd.read_excel("https://raw.githubusercontent.com/irsyadfauzan28-lab/QuranAppTesis/main/my_quran_app/Rangkuman_Bab_Berdasarkan_Ayat_dan_Hadits.xlsx")
     book_df['processed_text'] = book_df['Isi Pokok'].fillna("").apply(preprocess_text)
     return book_df
 
@@ -76,7 +76,6 @@ def search(query, tfidf_matrix, vectorizer, df, vocab, top_n=5):
     return df.iloc[top_indices]
 
 # ----------------- GET KEYWORD EXPLANATION ----------------- #
-# Function to get keyword explanation from the book
 def get_keyword_explanation(keyword, book_df):
     keyword = keyword.lower()
     explanations = book_df[book_df['processed_text'].str.contains(keyword)]
@@ -113,7 +112,7 @@ if query:
     st.subheader("Hasil Pencarian dari Buku Pendidikan Islam")
     results_book = search(query, tfidf_book, vectorizer, df_book, vocab)
     for _, row in results_book.iterrows():
-        st.markdown(f"**Bab {row['Bab']} | Judul: {row['Judul']}**")  # Perbaikan kolom "Judul"
+        st.markdown(f"**Bab {row['Bab']} | Judul: {row['Judul']}**")  
         st.markdown(f"{row['Isi Pokok']}")
         st.markdown("---")
 
@@ -130,14 +129,12 @@ if query:
             st.markdown("---")
 
 # ----------------- BERT PENCARIAN ----------------- #
-# Add a feature for BERT-based search
 if st.button('Cari Ayat dengan BERT'):
     st.write(f"Pencarian dengan menggunakan model BERT untuk kata kunci: {query}")
     ayat_found = search_ayat(query, [ayat['translation'] for ayat in df_quran.to_dict('records')], df_quran['translation'].tolist())
     st.write(f"Ayat yang ditemukan: {ayat_found}")
 
 # ----------------- FEEDBACK ----------------- #
-# Feedback form
 st.write("Apakah pencarian ayat ini relevan dengan topik yang Anda cari?")
 feedback = st.radio('Pilih salah satu', ['Relevan', 'Tidak Relevan'])
 
