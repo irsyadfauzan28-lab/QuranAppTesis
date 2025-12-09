@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Pencarian Ayat Al-Qur'an</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📘 Aplikasi Pencarian Ayat Al-Qur'an</h1>
+            <p>Temukan ayat-ayat yang relevan dengan tema atau kata kunci yang Anda masukkan.</p>
+        </header>
+
+        <section class="search-section">
+            <h2>Cari Ayat Berdasarkan Kata Kunci</h2>
+            <form action="/search" method="get">
+                <input type="text" name="query" placeholder="Masukkan kata kunci..." required>
+                <button type="submit">Cari Ayat</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>© 2025 Aplikasi Pendidikan Agama Islam</p>
+        </footer>
+    </div>
+</body>
+</html>
